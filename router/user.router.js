@@ -46,7 +46,7 @@ userRouter.post("/login", async (req, res) => {
           const token = jwt.sign({ data: "data" }, process.env.secret);
           res
             .status(200)
-            .json({ msg: "You are successfully Logged In!!", token: token, email:email,name:name });
+            .json({ msg: "You are successfully Logged In!!", token: token, email:email,name:email.split("@")[0] });
         } else {
           res.status(400).json({ msg: "You are not authorized" });
         }
