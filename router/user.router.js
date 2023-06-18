@@ -80,7 +80,7 @@ userRouter.post("/login", async (req, res) => {
 
 userRouter.get("/userProfile", auth, async (req, res) => {
   try {
-    const user = await UserModel.findById(req.body.usersID);
+    const user = await UserModel.findById(req.body.userID);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
