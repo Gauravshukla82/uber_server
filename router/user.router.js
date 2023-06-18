@@ -8,7 +8,7 @@ const { UserModel } = require("../model/user.model");
 const cors = require("cors");
 // userRouter.use(express.json());
 userRouter.use(cors());
-const { auth } = require("../middleware/auth.middleware") 
+
 userRouter.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   console.log(name, email, password);
@@ -30,8 +30,8 @@ userRouter.post("/register", async (req, res) => {
           // res.status(200).json({ msg: "new user has been added" });
           const token = jwt.sign({ userID: users._id }, process.env.secret);
         res.json({
-          msg: "User has been registered",
-          user: req.body,
+          msg: "Driver has been registered",
+          driver: req.body,
           token,
         });
         }
@@ -69,26 +69,15 @@ userRouter.post("/login", async (req, res) => {
 
 // we ll need a get users detials route too  
 //tp 
-// userRouter.get("/userdetails", async (req, res) => {
-//   try {
-//     const users = await UserModel.find();
-//     res.status(200).json(users);
-//   } catch (error) {
-//     res.status(400).json({ error: "Failed to fetch users" });
-//   }
-// });
-
-userRouter.get("/userProfile", auth, async (req, res) => {
+userRouter.get("/userdetails", async (req, res) => {
   try {
-    const user = await UserModel.findById(req.body.userID);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.json({ user });
+    const users = await UserModel.find();
+    res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(400).json({ error: "Failed to fetch users" });
   }
 });
+
 
 
 
